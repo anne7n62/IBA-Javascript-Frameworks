@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background: url('sunrise.png') center/cover no-repeat; /* Set your image URL here */
+    
+    canvas {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+    }
+    
+    #c {
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    
+    li, .close-button {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        text-transform: capitalize;
+    }
+}
