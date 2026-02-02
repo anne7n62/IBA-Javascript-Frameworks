@@ -3,8 +3,14 @@ const app = express();
 const port = 3000;
 const path = require("path");
 
-app.get("/bruger/:fornavn", (req, res) => {
-  const navn = req.params.fornavn;
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
-  res.send(`<h1>Hej ${navn}!</h1>`);
+app.get("/:side", (req, res) => {
+  const filePath = path.join(__dirname, "public", req.params.side);
+  res.sendFile(filePath);
+});
+app.listen(port, () => {
+  console.log(`server kører på http://localhost:${port}`);
 });
