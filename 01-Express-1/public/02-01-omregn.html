@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GET Query Eksempel</title>
+  </head>
+  <body>
+    <h1 style="color: blue">Velkommen til GET-eksempel!</h1>
+
+    <p>Multiplikation med fetch:</p>
+    <input type="number" id="x" placeholder="x" />
+    <input type="number" id="y" placeholder="y" />
+    <button onclick="beregn()">Beregn</button>
+
+    <p>Resultat: <span id="resultat"></span></p>
+
+    <script>
+      async function beregn() {
+        const x = document.getElementById("x").value;
+        const y = document.getElementById("y").value;
+
+        // Fetch GET med query string
+        const res = await fetch(`/mult?x=${x}&y=${y}`);
+
+        if (res.ok) {
+          const tal = parseFloat(await res.text());
+          document.getElementById("resultat").textContent = tal;
+        } else {
+          document.getElementById("resultat").textContent = "Fejl i input!";
+        }
+      }
+    </script>
+  </body>
+</html>
