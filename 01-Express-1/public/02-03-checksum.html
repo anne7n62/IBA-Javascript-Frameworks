@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ren tekst til server</title>
+  </head>
+  <body>
+    <h1>Send ren tekst til serveren</h1>
+
+    <textarea
+      id="tekst"
+      rows="5"
+      cols="50"
+      placeholder="Skriv noget tekst her"
+    ></textarea
+    ><br /><br />
+    <button onclick="sendTekst()">Send tekst</button>
+
+    <p>Resultat: <span id="resultat"></span></p>
+
+    <script>
+      async function sendTekst() {
+        const tekst = document.getElementById("tekst").value;
+
+        const res = await fetch("/checksum", {
+          method: "POST",
+          headers: { "Content-Type": "text/plain" },
+          body: tekst,
+        });
+
+        const svar = await res.text();
+        document.getElementById("resultat").textContent = svar;
+      }
+    </script>
+  </body>
+</html>
