@@ -1,0 +1,20 @@
+function opretSkakbrætMedCSS(størrelse) {
+  const style = document.createElement("style");
+  style.innerHTML = `.skak-felt {width:50px;height:50px;} .sort {background-color: black;} .hvid {background-color: white}`;
+  document.head.appendChild(style);
+  const table = document.createElement('table');
+  table.border = '1'; table.style.borderCollapse = 'collapse';
+  let erSort = false;
+  for (let rowIndex = 0; rowIndex < størrelse; rowIndex++) {
+    const row = table.insertRow();
+    for (let cellIndex = 0; cellIndex < størrelse; cellIndex++) {
+      const cell = row.insertCell();
+      cell.classList.add(erSort ? "sort" : "hvid");
+      cell.classList.add("skak-felt");
+      erSort = !erSort;
+    }
+    if (størrelse % 2 === 0) erSort = !erSort;
+  }
+  document.body.appendChild(table);
+  return table;
+}

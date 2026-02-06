@@ -1,0 +1,16 @@
+[
+  {
+    "brugernavn": "Richard",
+    "fuldeNavn": "Richard Madsen",
+    "password": "1",
+    "arbejde": "underviser",
+    "sidsteLogin": "Thu Feb 06 2025 18:24:41 GMT+0100 (Centraleuropæisk normaltid)"
+  },
+  {
+    "brugernavn": "Seven",
+    "fuldeNavn": "Seven of Nine",
+    "password": "2",
+    "arbejde": "tertiary adjunct of unimatrix zero",
+    "sidsteLogin": "Fri Feb 06 2026 10:55:43 GMT+0100 (Central European Standard Time)"
+  }
+]

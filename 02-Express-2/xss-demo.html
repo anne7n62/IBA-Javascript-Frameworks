@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XSS-demo</title>
+</head>
+
+<body>
+  <form action="http://localhost:3000/submit" method="get">
+    <label for="bruger">Navnet på din kære</label>
+    <input type="text" id="bruger" name="bruger" required>
+    <button type="submit">Submit</button>
+  </form>
+</body>
+
+</html>
