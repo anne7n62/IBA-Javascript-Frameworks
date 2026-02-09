@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Opgave 4</title>
+  </head>
+
+  <body>
+    <input type="file" id="fil" />
+    <button id="submit">Upload</button>
+    <p id="output"></p>
+
+    <script>
+      document.getElementById("submit").addEventListener("click", submit);
+
+      //sender fil til server - serversvar afgør om det lykkes
+      async function submit() {
+        let filer = document.getElementById("fil").files;
+        let fil = filer[0];
+        let res = await fetch("/upload", {
+          method: "POST",
+          body: fil,
+          headers: {
+            "Content-Type": "application/octet-stream",
+            Filnavn: fil.name,
+          },
+        });
+        document.getElementById("output").textContent =
+          `Overførslen er ${res.ok ? "" : "mis"}lykkedes`;
+      }
+      //document.getElementById("submit").addEventListener("click", submit);
+    </script>
+  </body>
+</html>
