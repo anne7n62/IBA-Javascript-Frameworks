@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opgave 4</title>
+</head>
+
+<body>
+  <input type="file" id="fil"><button id="submit">Upload</button>
+  <button id="vis">Vis</button>
+  <button id="slet">Slet</button>
+  <span>Klik på en fils navn for at downloade den</span>
+  <p id="output"></p>
+  <script>
+    document.getElementById("submit").addEventListener("click", submit);
+    document.getElementById("vis").addEventListener("click", vis);
+    document.getElementById("slet").addEventListener("click", slet);
+    let output = document.getElementById("output");
+    async function submit() {
+      let filer = document.getElementById("fil").files;
+      let fil = filer[0];
+      let res = await fetch('/upload', {
+        method: 'POST', body: fil,
+        headers: { 'Content-Type': 'application/octet-stream', "Filnavn": fil.name }
+      });
+      if (!res.ok) alert(`Overførslen er mislykkedes`); else vis();
+    }
+    async function vis() {
+      let res = await fetch("vis");
+      if (res.ok) {
+        let filer = await res.json(); output.innerHTML = "";
+        for (let f of filer) {
+          output.innerHTML += `<div><span class="download" id="${f}">${f}</span> <input type="checkbox" data-fil=${f} class="slet"> 🗑️</div>`;
+        }
+        for (let e of document.getElementsByClassName("download")) e.addEventListener("click", download);
+      } else output.innerHTML = "Ingen filer at vise";
+    }
+    async function download() {
+      const link = document.createElement('a');
+      link.href = "/download/" + this.id; link.download = this.id;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    async function slet() {
+      let filer = document.getElementsByClassName("slet");
+      let filerAtSlette = [];
+      for (let f of filer) if (f.checked) filerAtSlette.push(f.dataset.fil);
+      if (filerAtSlette.length > 0) {
+        if (confirm(`Er du sikker at du vil slette fil${filerAtSlette.length === 1 ? "en" : "erne"}`)) {
+          let res = await fetch("/slet", {
+            method: "DELETE", body: JSON.stringify({ filer: filerAtSlette }),
+            headers: { "Content-Type": "application/json" }
+          });
+          if (!res.ok) alert("En eller flere filer blev ikke slettet");
+          vis();
+        }
+      }
+    }
+    vis();
+  </script>
+</body>
+
+</html>
