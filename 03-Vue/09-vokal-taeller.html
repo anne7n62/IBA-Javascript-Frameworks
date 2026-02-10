@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Vokal-tæller med Vue</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <label>
+        Skriv noget:
+        <input type="text" v-model="tekst" />
+      </label>
+      <p>
+        Teksten indeholder {{ antalVokaler }} vokaler (a, e, i, o, u, y, æ, ø,
+        å)
+      </p>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            tekst: "",
+          };
+        },
+        //  computed property til at tælle vokaler
+        computed: {
+          antalVokaler() {
+            const vokaler = ["a", "e", "i", "o", "u", "y", "æ", "ø", "å"];
+            let count = 0;
+            for (let c of this.tekst.toLowerCase()) {
+              if (vokaler.includes(c)) count++;
+            }
+            return count;
+          },
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>
