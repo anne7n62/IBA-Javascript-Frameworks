@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sekund-opgave</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <h2>Sekund: {{ sekund }}</h2>
+
+      <p v-if="besked === '3'">Kan kun deles med 3</p>
+      <p v-else-if="besked === '5'">Kan kun deles med 5</p>
+      <p v-else>Kan hverken deles med 3 eller 5</p>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            sekund: new Date().getSeconds(),
+          };
+        },
+
+        computed: {
+          besked() {
+            if (this.sekund % 3 === 0 && this.sekund % 5 !== 0) return "3";
+            if (this.sekund % 5 === 0 && this.sekund % 3 !== 0) return "5";
+            return "andet";
+          },
+        },
+
+        mounted() {
+          // opdater hvert sekund
+          setInterval(() => {
+            this.sekund = new Date().getSeconds();
+          }, 1000);
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
