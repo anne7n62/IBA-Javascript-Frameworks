@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Farver med mus</title>
+    <style>
+      #app > div {
+        width: 256px;
+        height: 256px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <p>Bevæg musen:</p>
+
+      <div
+        @mousemove="musePos"
+        :style="{
+          backgroundColor: 'rgb('+rød+','+grøn+','+blå+')',
+          color: 'rgb('+blå+','+rød+','+grøn+')',
+          fontSize: størrelse + 'px'
+        }"
+      >
+        rød: {{ rød }} | grøn: {{ grøn }} | blå: {{ blå }}
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            rød: 0,
+            grøn: 0,
+            blå: 0,
+            størrelse: 16,
+          };
+        },
+
+        methods: {
+          musePos(event) {
+            if (event.buttons === 1) {
+              this.rød = event.offsetX;
+              this.grøn = event.offsetY;
+              this.blå = Math.floor((event.offsetX + event.offsetY) / 2);
+
+              // font-size styres af Y
+              this.størrelse = 10 + event.offsetY / 2;
+            }
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
