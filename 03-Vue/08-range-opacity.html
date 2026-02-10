@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Range demo</title>
+    <style>
+      #app > div {
+        width: 256px;
+        height: 256px;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <p>Bevæg skyderne:</p>
+      <label
+        >rød <input type="range" min="0" max="255" v-model="rød" />
+        <p>{{rød}}</p>
+      </label>
+      <label
+        >grøn <input type="range" min="0" max="255" v-model="grøn" />
+        <p>{{grøn}}</p>
+      </label>
+      <label
+        >blå <input type="range" min="0" max="255" v-model="blå" />
+        <p>{{blå}}</p>
+      </label>
+      <label
+        >gennemsigtihed
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.1"
+          v-model="gennemsigtighed"
+        />
+        <p>{{gennemsigtighed}}</p>
+      </label>
+      <div
+        v-bind:style="{
+    backgroundColor: 'rgba(' + rød + ',' + grøn + ',' + blå + ',' + gennemsigtighed + ')'
+  }"
+      ></div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return { rød: 0, grøn: 0, blå: 0, gennemsigtighed: 1 };
+        },
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>
