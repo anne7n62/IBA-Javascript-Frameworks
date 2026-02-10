@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>v-show opgave</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- vis kun hvis mindst ét tal > 0.5 -->
+      <img v-show="x > 0.5 || y > 0.5" :src="url" width="400" />
+
+      <p>x = {{ x }}</p>
+      <p>y = {{ y }}</p>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            x: Math.random(),
+            y: Math.random(),
+            url: "http://www.railfaneurope.net/pix/at/electric/1016/017-019/1016_017_Vf.jpg",
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
