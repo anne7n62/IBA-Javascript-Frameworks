@@ -1,0 +1,25 @@
+<body>
+  <div id="app">
+    <!--Alle html-elementer som Vue skal manipulere skal stå her-->
+    <p>{{x}} + {{y}} = {{produkt}}</p>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <!--Reference til Vue runtime-->
+
+  <script>
+    const app = Vue.createApp({
+      //opretter Vue-instancen
+      data() {
+        const x = Math.floor(Math.random() * 10);
+        const y = Math.floor(Math.random() * 10);
+        return {
+          x,
+          y,
+          produkt: x * y,
+        };
+      },
+    });
+    app.mount("#app"); //binder Vue-instancen til HTML-elementet ovenpå
+  </script>
+</body>
